@@ -64,9 +64,11 @@ export default function Home() {
             <button onClick={handleLogoutClick}>logout user</button>
           </li>
         )}
-        <li>
-          <button onClick={handleRegisterClick}>go to register page</button>
-        </li>
+        {(!user || !user.loggedIn) && (
+          <li>
+            <button onClick={handleRegisterClick}>go to register page</button>
+          </li>
+        )}
         <li>
           <button onClick={handleUsersClick}>go to users page</button>
         </li>
