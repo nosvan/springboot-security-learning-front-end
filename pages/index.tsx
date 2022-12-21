@@ -10,18 +10,7 @@ export type UserLog = {
 
 export default function Home() {
   const router = useRouter();
-  const [user, setUser] = useState<UserLog>();
   const userContext = useUserLogContext();
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('userLoggedIn');
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
-    } else {
-      setUser({ email: '', loggedIn: false });
-    }
-  }, [userContext]);
 
   const handleLoginClick = () => {
     router.push('/login');
@@ -54,17 +43,17 @@ export default function Home() {
   return (
     <div>
       <ul>
-        {(!user || !user.loggedIn) && (
+        {!userContext?.user.loggedIn && (
           <li>
             <button onClick={handleLoginClick}>go to login page</button>
           </li>
         )}
-        {user && user.loggedIn && (
+        {userContext?.user.loggedIn && (
           <li>
             <button onClick={handleLogoutClick}>logout user</button>
           </li>
         )}
-        {(!user || !user.loggedIn) && (
+        {!userContext?.user.loggedIn && (
           <li>
             <button onClick={handleRegisterClick}>go to register page</button>
           </li>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useUserLogContext } from '../../context/user';
 import { UserLog } from '../../pages';
@@ -18,6 +18,13 @@ export default function Login() {
     const loginInfo: UserLogin = { email: email, password: password };
     loginUser(loginInfo);
   };
+
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem('userLoggedIn');
+    if (userFromStorage && !JSON.parse(userFromStorage).isLoggedIn) {
+      router.push('/');
+    }
+  }, []);
 
   async function loginUser(user: UserLogin) {
     await axios('http://localhost:8080/login', {

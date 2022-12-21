@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useUserLogContext } from '../../context/user';
 
 type UserRegister = {
   firstName: String;
@@ -8,6 +10,7 @@ type UserRegister = {
 };
 
 export default function Register() {
+  const router = useRouter();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,6 +18,13 @@ export default function Register() {
   const handleSubmit = () => {
     registerUser();
   };
+
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem('userLoggedIn');
+    if (userFromStorage && !JSON.parse(userFromStorage).isLoggedIn) {
+      router.push('/');
+    }
+  }, []);
 
   async function registerUser() {
     const user: UserRegister = {
