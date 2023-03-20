@@ -11,6 +11,10 @@ export type UserLog = {
 export default function Home() {
   const router = useRouter();
   const userContext = useUserLogContext();
+  console.log('in home');
+  useEffect(() => {
+    console.log('in home effect');
+  }, []);
 
   const handleLoginClick = () => {
     router.push('/login');

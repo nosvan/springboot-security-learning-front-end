@@ -18,10 +18,14 @@ export default function Login() {
     const loginInfo: UserLogin = { email: email, password: password };
     loginUser(loginInfo);
   };
+  console.log('in login');
+  useEffect(() => {
+    console.log('in login effect');
+  });
 
   useEffect(() => {
     const userFromStorage = localStorage.getItem('userLoggedIn');
-    if (userFromStorage && !JSON.parse(userFromStorage).isLoggedIn) {
+    if (userFromStorage && JSON.parse(userFromStorage).loggedIn) {
       router.push('/');
     }
   }, []);

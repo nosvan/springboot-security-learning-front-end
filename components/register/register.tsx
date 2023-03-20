@@ -21,7 +21,7 @@ export default function Register() {
 
   useEffect(() => {
     const userFromStorage = localStorage.getItem('userLoggedIn');
-    if (userFromStorage && !JSON.parse(userFromStorage).isLoggedIn) {
+    if (userFromStorage && JSON.parse(userFromStorage).loggedIn) {
       router.push('/');
     }
   }, []);

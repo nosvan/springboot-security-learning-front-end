@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-type User = {
+export type User = {
   id: number;
   firstName: string;
   lastName: string;
@@ -10,9 +10,8 @@ type User = {
 
 export default function Users() {
   const [users, setUsers] = useState<User[]>();
-  const handleSubmit = () => {
-    getUsers();
-  };
+
+  console.log('in users');
 
   async function getUsers() {
     await axios('http://localhost:8080/users', {
@@ -27,9 +26,14 @@ export default function Users() {
         console.log(error);
       });
   }
+
+  useEffect(() => {
+    console.log('in users effect');
+    getUsers();
+  }, []);
+
   return (
     <div>
-      <button onClick={handleSubmit}>List Users</button>
       {users && (
         <table>
           <thead>
